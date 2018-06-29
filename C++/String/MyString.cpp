@@ -1,29 +1,56 @@
-#include "iostream"
-#include "assert.h"
-#include "string.h"
-
+#include <iostream>
+#include <stdio.h>
+#include <assert.h>
+#include <string.h>
 using namespace std;
 
-int main()
+
+/*
+传入一个char*的字符指针
+
+字符串为空，直接退出（assert断言退出）
+
+声明int值，记录字符串的长度
+
+char* tstr，保存一份临时的指针，用来做后移操作
+（不需要，当传入的为字符指针时，已经有一份拷贝了）
+
+while循环，用来判断指针的下一位是否是结束字符 '\0'
+-不为空 长度加一
+-为空 结束循环，返回长度
+*/
+int Mystrlen(char* str)
 {
-    /*当一个字符串常量出现于表达式中时，它的值是个指针常量。编译器把这个指定字符的一份copy存储在内存的某个位置，
-    并存储一个指向第一个字符的指针。*/
-    cout << *"xyz" << endl;//x
-    cout << *"xyz"+1 << endl;//y的ascll码
-    cout << "xyz"[2] << endl;//z
-    //cout << *("xyz"+4) << endl;
-    cout << "xyz"+1<< endl;//yz
-
-    /*======等价于======*/
-    cout << "/*======等价于======*/"<< endl;
-
-    char *p="xyz";
-    cout << *p << endl;//x
-    cout << *p+1 << endl;//y的ascll码
-    cout << char(*p+1) << endl;//y
-    cout << p[2] << endl;//z
-    cout << p+1<< endl;//yz
-    return 0;
+    assert(str != NULL);
     
-    cout<<""<<; 
+    int str_len = 0;
+    char* tstr = str;
+    while (*tstr++ != '\0') {
+        str_len++;
+    }
+    return str_len;    
+}
+
+
+int main() {
+	
+	string str = "abc";
+	char astr[] = "123";
+	char* pstr = "abc123";//warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+	
+	cout<< str << endl;// abc
+	// string不是c语言的内置数据 printf无法直接打印string  需要转换为char*
+	str[0] = 'd';
+	printf("%s\n", str.c_str());// dbc  
+	str[4] = 'd';
+	printf("%s\n", str.data());// dbc
+
+	astr[0] = 'd';
+	printf("%s\n", astr);// d23
+	printf("%d\n",Mystrlen(astr)); // 3
+	
+	printf("%s\n", pstr);// abc123
+	printf("%d",Mystrlen(pstr));// 6
+
+	return 0;
 }

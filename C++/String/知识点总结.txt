@@ -1,0 +1,38 @@
+参考文档：
+https://blog.csdn.net/ahafg/article/details/58657725
+
+1.
+c风格字符串和C++风格字符串的区别
+
+最大的区别就是C风格的字符串是静态的，不可以动态变化。
+而C++的std::string类型动态管理。
+
+C风格字符串和char数组是不一样的，看下面两种定义：
+char carr1 = {'a', 'b', 'c'};
+char carr2 = {'a', 'b', 'c', '\0'};
+看上面，carr2可以说成是C风格字符串，carr1就不是C风格字符串，C风格字符串必须要以'\0'结尾的。
+string类是标准库的类，并不是内置类型，标准库就像是我们自己定义的类差不多的，string类型对象没有标配'\0'结尾的。
+如果需要用string类给C风格字符串赋值的话，后面是需要添加'\0'的。
+
+2.
+关于string char* /char[] 的相互转换
+
+1.string转向char*
+第一种：data()
+第二种：c_str()
+第三种：copy()
+
+2.char[]转向string
+假设c字符串定义为char ch[]="hello world!";
+1.向构造函数传入c字符串创建string对象：
+string str(ch);
+2.使用拷贝构造函数创建string对象：
+string str = ch;
+3.对已有的string对象调用string类内部定义的赋值运算符：
+string str;
+str = ch; 
+ 
+前两种类似，但和第三种有较大区别，前两种是运用构造函数直接创建一个内容与c字符串一致的string对象；
+第三种是c++标准库编写的string类的内部重载了赋值运算符，使之能够以c字符串作为右操作数对string对象进行赋值，
+使string对象的内容与c字符串一致
+
