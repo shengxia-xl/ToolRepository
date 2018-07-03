@@ -5,6 +5,9 @@ https://c.runoob.com/compile/12
 参考文档：
 https://blog.csdn.net/ahafg/article/details/58657725
 
+C语言字符串操作总结大全(超详细)
+https://www.jb51.net/article/37410.htm
+
 1.
 c风格字符串和C++风格字符串的区别
 
@@ -39,4 +42,17 @@ str = ch;
 前两种类似，但和第三种有较大区别，前两种是运用构造函数直接创建一个内容与c字符串一致的string对象；
 第三种是c++标准库编写的string类的内部重载了赋值运算符，使之能够以c字符串作为右操作数对string对象进行赋值，
 使string对象的内容与c字符串一致
+
+3.
+strlen / sizeof 
+const char* str1 = "abcdefg";
+char str2[] = "abcde";
+
+sizeof(str1) = 8; sizeof(str2) = 6; strlen(str1) = 7; strlen(str2) = 5; 
+sizeof计算的是内存空间大小，str1为指针，64位下位8字节，str2有5个字符，加上一个字符串结束符’\0’共6个。
+strlen计算的是实际字符串中字符的个数，不包含字符串结束符’\0’;
+
+数组做sizeof的参数不退化，传递给strlen就退化为指针了
+
+
 
