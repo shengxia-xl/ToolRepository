@@ -1,0 +1,14 @@
+String:
+C字符串与C++字符串的区别
+几种常用的C字符串常用函数 strlen strcat strcpy strcmp
+
+VariableInit：
+关于变量的初始化
+基本类型变量
+类类型变量
+类类型中的基本变量
+
+Binary：
+补码反码原码的原理
+二进制中的位运算
+
