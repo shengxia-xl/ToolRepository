@@ -1,0 +1,72 @@
+C++继承
+https://www.cnblogs.com/metalsteel/p/6280389.html
+
+关于继承
+private 继承：父类的public,protected类型成员继承为子类的private
+protected 继承：父类的public,protected类型成员继承为子类的protected
+public 继承：父类的public为子类的public ,protected类型成员继承为子类的protected
+
+--------------------------------------------------------------------------
+struct 默认无public成员
+class 默认为private成员
+
+缺省继承种类时，默认为private继承
+
+----------------------------------------------------------------
+继承二义性：
+A : 子类 
+	int a;
+	void f();
+B ：子类 
+	int a;
+	void f();
+C ：public A, public B
+	int a;
+	void f(); 
+D : public C
+	int a;
+	void f();
+
+C c;
+c.A::a; // A.a 
+c.B::a; // B.a
+c.C::a; // C.a
+c.a; // C.a ***
+
+c.A::f(); // A.f()
+c.B::f(); // B.f()
+c.C::f(); // C.f()
+c.f(); // C.f()
+
+D d;
+d.a; // D.a
+d.f(); // D.f()
+-------------------------
+C类中的A B 的继承顺序决定了A B 的初始化顺序
+C：public A, public B   (A -> B -> C)
+C：public B, public A   (B -> A -> C)
+
+与C的初始化列表中的顺序没有关系
+-------------------------
+如果C类中有A B的成员变量
+C ：public A, public B
+	int a;
+	A a1;
+	B b1;
+	A a2;
+	B b2;
+	void f();
+
+初始化顺序：
+继承 左 -> 右
+变量 上 -> 下    
+A(1) -> B(1) -> A(2) -> B(2) -> A(2) -> B(2) -> C 
+
+1、(继承中基类的构造)
+2、(C类中的成员变量的初始化)
+
+-------------------------
+构造与析构的顺序一定相反
+
+
+
