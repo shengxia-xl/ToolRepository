@@ -62,8 +62,61 @@ int main ()
 //	printf("sizeof(long double) = %d\n", sizeof(long double));// 16
 //	printf("sizeof(double long) = %d\n", sizeof(double long));// 16
 
-	printf("%d\n", sizeof(A));
-	printf("%d\n", sizeof(B));
+	printf("%d\n", sizeof(A)); // 20
+	printf("%d\n", sizeof(B)); // 28
+	
+//	基本类型的打印
+	char char1 = 'a';
+	bool b1 = true;
+	short short1 = 1;
+	int int1 = 1;
+	unsigned int uint1 = 1;
+	long long1 = 1;
+	unsigned long ulong1 = 1;
+	long long llong1 = 1;
+	float float1 = 1.111;
+	double  double1 = 1.1111;
+	long double ldouble1 = 1.111;
+	
+	// %c 单个字符  %05c  无法打印多的字符0 
+	printf("%5c\n", char1);// [    a]
+	printf("%-5c\n", char1);// [a    ]
+	printf("%2.5c\n", char1);// [ a   ]
+	printf("%-2.5c\n", char1);// [a   ]
+	
+	// bool 使用 %d 打印   false = 0  true = 1
+	printf("%d\n", b1);
+	
+	// short   使用 %d 打印
+	printf("%d\n", short1);
+	
+	//int 
+	printf ("\n");
+	printf("%d\n", int1); //  %u %d %ld 打印都可以
+	printf("%u\n", uint1); // %u %d 打印都可以  uint1 = -1时候,编译不会出错，输出4294967295 
+	printf("%05d\n", int1);  // 00001
+	printf("%02.5d\n", int1);  // 00001 还是按照最大的占位补齐0 
+	
+	//long 
+	printf("%ld\n", long1);  // %u %d %ld 打印都可以 
+	
+	// unsigned long 
+	printf("%lu\n", ulong1);  // %u %d %ld 打印都可以
+	
+	//long long 
+	printf("%lld\n", llong1);  // %u %d %ld %lld 打印都可以
+	
+	//float
+	printf("%1.2f\n", float1);
+	
+	//double
+	printf("%1.2f\n", double1);
+	
+	// long double
+	printf("%1.2Lf\n", ldouble1);
+	
+	
+	
 	return 0; 
 }
 

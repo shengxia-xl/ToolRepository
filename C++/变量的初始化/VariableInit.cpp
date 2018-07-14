@@ -155,9 +155,10 @@ Test::Test(void) :var1(11111),var2(22222) //正确的初始化方法 ， var3(33
 class BClass
 {
 public:
-    BClass() : i(1), ci(2), ri(i) // 对于常量型成员变量和引用型成员变量，必须通过
-    { // 参数化列表的方式进行初始化。在构造函数体内进
-    } // 行赋值的方式，是行不通的。
+    BClass() : i(1), ci(2), ri(i)
+    { 
+        // 对于常量型成员变量和引用型成员变量，必须通过参数化列表的方式进行初始化。在构造函数体内进行赋值的方式，是行不通的。
+    } 
 
 private:
     int i; // 普通成员变量
@@ -181,8 +182,30 @@ private:
     // 但在VC2003中如果有下面一行将会产生错误，而在VC2005中，下面这行则可有可无，这个和编译器有关。
     const int BClass::csi2;
 */
+
+
 /*------------------------------------------------------------------------*/
 
+class A {
+public:
+    A() {
+        cout<<"A()!"; 
+    }
+public:
+    int a;
+    static const int cint1;
+    static const int cint2 = 5;
+    static const double cdb1;
+    static const double cdb2 = 99.9;
+};
+
+//int A::cint1 = 1; // confilicting 冲突定义  出错
+//int A::cint2 = 2; // duplicate 重复定义 出错
+//double A::cdb1 = 1.1; // confilicting 冲突定义  出错
+//double A::cdb2 = 2.2; // duplicate 重复定义 出错
+
+const int A::cint1 = 1; // 正确初始化
+const double A::cdb1 = 1.0; // 正确初始化
 
 int main() 
 {
