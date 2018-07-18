@@ -1,5 +1,12 @@
 C++继承
 https://www.cnblogs.com/metalsteel/p/6280389.html
+C++父类子类间函数重定义，虚函数重写（覆盖）以及重载
+https://blog.csdn.net/cpp12341234/article/details/52195993
+C++虚函数表剖析
+https://blog.csdn.net/lihao21/article/details/50688337
+深入理解C++的动态绑定和静态绑定
+https://blog.csdn.net/chgaowei/article/details/6427731
+https://blog.csdn.net/f2016913/article/details/70231785
 
 关于继承
 private 继承：父类的public,protected类型成员继承为子类的private
@@ -94,4 +101,81 @@ A(1) -> B(1) -> A(2) -> B(2) -> A(2) -> B(2) -> C
    a 如果派生类的函数和基类的函数同名，但是参数不同，此时，不管有无virtual，基类的函数被隐藏。
    b 如果派生类的函数与基类的函数同名，并且参数也相同，但是基类函数没有vitual关键字，此时，基类的函数被隐藏。\
 
-虚函数的重载与重写
+-------------------------
+
+重定义深度讨论
+
+class A : 子类
+	void f();
+	void f(int a);
+
+class AA: public A
+	void f();
+
+AA* aa = new AA();
+int a1;
+aa.f();// AA.f()
+aa.f(a1)// error 没有这个函数   函数继承失败。直接被覆盖
+
+-------------------------
+class A : 子类
+	void f();
+
+class AA: public A
+	int f();
+
+AA* aa = new AA();
+aa.f();// AA.f()
+-------------------------
+class A : 子类
+	void f();
+	virtual void g();
+
+class AA: public A
+	void f();
+	int g();
+
+AA* aa = new AA();
+aa.g();// error 报错重写虚函数返回类型有差异
+
+------------------------
+
+虚函数 纯虚函数 虚函数表
+
+class A {
+
+}
+
+class B {
+	virtual void f();
+}
+
+sizeof(A);//1 
+sizeof(B);//8   虚函数表的内存地址指针
+
+
+---------------------------
+动态绑定 静态绑定
+C++中的动态绑定主要是由虚函数来实现的
+
+静态绑定：编译时绑定， 通过对象调用 
+动态绑定：运行时绑定，通过地址实现 
+
+静态多态：a:函数多态（重载） b:模板多态（类模板和函数模板） 
+动态多态： a:虚函数机制；b:RTTI
+
+class B  
+{  
+ virtual void vfun(int i = 10);  
+}  
+class D : public B  
+{  
+ virtual void vfun(int i = 20);  
+}  
+D* pD = new D();  
+B* pB = pD;  
+pD->vfun();  //20
+pB->vfun();  //10
+
+虚函数是动态绑定的，但是为了执行效率，缺省参数是静态绑定的。
+“绝不重新定义继承而来的缺省参数（Never redefine function’s inherited default parameters value.）”
