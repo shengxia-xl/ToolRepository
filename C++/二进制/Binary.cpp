@@ -6,52 +6,52 @@ using namespace std;
 
 
 int main ()
-{	
-	//C++²»Ö§³ÖÖ±½ÓÊ¹ÓÃ¶ş½øÖÆµÄÊı£¬Ö»Ö§³Ö8,10,16ÈıÖÖ½øÖÆµÄÖ±½Ó¶¨Òå
-	int i_Decimal = 10;
-	int i_Octal = 010;
-	int i_Hexadecimal = 0X10;
-	
-	printf("%d\n", i_Decimal);
-	// Ö»ÄÜĞ¡Ğ´ 'o' £¬´óĞ´ 'O' ´òÓ¡ '%O' 
-	printf("i_Octal£¨Ê®½øÖÆ£© = %d, i_Octal£¨°Ë½øÖÆ£© = %o\n", i_Octal, i_Octal);// 8 10
-	// ´óĞ´ Ğ¡Ğ´ 'x'/'X' ¶¼¿ÉÒÔ´òÓ¡³ö16½øÖÆ 
-	printf("i_Hexadecimal£¨Ê®½øÖÆ£© = %d, i_Hexadecimal£¨Ê®Áù½øÖÆ£© = %X\n", i_Hexadecimal, i_Hexadecimal);// 16 10
-	
-	// ¹ØÓÚprintfµÄ²âÊÔ  (²ÎÊıÈ±Ê¡)
-	printf("i_Octal£¨Ê®½øÖÆ£© = %d, i_Octal£¨°Ë½øÖÆ£© = %o\n", i_Octal);// 8 Ëæ»úÖµ
-	
-	// string ÖĞÒ²ÓĞÏà¹Øº¯Êı  string×ªÓë¸÷ÖÖ½øÖÆµÄÕûÊı µÄÏà»¥×ª»» 
-	// bitset Ö±½Ó×ª»»Îª2½øÖÆµÄ×Ö·û´® 
-	bitset<8> bit_Decimal(10);// bitset Îª8Î»£¬ ³õÊ¼»¯ÎªÊ®½øÖÆµÄ10 
-	bitset<8> bit_Octal(010);//  bitset Îª8Î»£¬ ³õÊ¼»¯Îª°Ë½øÖÆµÄ10
-	bitset<8> bit_Hexadecimal(0X10); // bitset Îª8Î»£¬ ³õÊ¼»¯ÎªÊ®Áù½øÖÆµÄ10
+{    
+    //C++ä¸æ”¯æŒç›´æ¥ä½¿ç”¨äºŒè¿›åˆ¶çš„æ•°ï¼Œåªæ”¯æŒ8,10,16ä¸‰ç§è¿›åˆ¶çš„ç›´æ¥å®šä¹‰
+    int i_Decimal = 10;
+    int i_Octal = 010;
+    int i_Hexadecimal = 0X10;
+    
+    printf("%d\n", i_Decimal);
+    // åªèƒ½å°å†™ 'o' ï¼Œå¤§å†™ 'O' æ‰“å° '%O'
+    printf("i_Octalï¼ˆåè¿›åˆ¶ï¼‰ = %d, i_Octalï¼ˆå…«è¿›åˆ¶ï¼‰ = %o\n", i_Octal, i_Octal);// 8 10
+    // å¤§å†™ å°å†™ 'x'/'X' éƒ½å¯ä»¥æ‰“å°å‡º16è¿›åˆ¶
+    printf("i_Hexadecimalï¼ˆåè¿›åˆ¶ï¼‰ = %d, i_Hexadecimalï¼ˆåå…­è¿›åˆ¶ï¼‰ = %X\n", i_Hexadecimal, i_Hexadecimal);// 16 10
+    
+    // å…³äºprintfçš„æµ‹è¯•  (å‚æ•°ç¼ºçœ)
+    printf("i_Octalï¼ˆåè¿›åˆ¶ï¼‰ = %d, i_Octalï¼ˆå…«è¿›åˆ¶ï¼‰ = %o\n", i_Octal);// 8 éšæœºå€¼
+    
+    // string ä¸­ä¹Ÿæœ‰ç›¸å…³å‡½æ•°  stringè½¬ä¸å„ç§è¿›åˆ¶çš„æ•´æ•° çš„ç›¸äº’è½¬æ¢
+    // bitset ç›´æ¥è½¬æ¢ä¸º2è¿›åˆ¶çš„å­—ç¬¦ä¸²
+    bitset<8> bit_Decimal(10);// bitset ä¸º8ä½ï¼Œ åˆå§‹åŒ–ä¸ºåè¿›åˆ¶çš„10
+    bitset<8> bit_Octal(010);//  bitset ä¸º8ä½ï¼Œ åˆå§‹åŒ–ä¸ºå…«è¿›åˆ¶çš„10
+    bitset<8> bit_Hexadecimal(0X10); // bitset ä¸º8ä½ï¼Œ åˆå§‹åŒ–ä¸ºåå…­è¿›åˆ¶çš„10
 
-	cout<<bit_Decimal.to_string()<<endl; // 00001010 
-	cout<<bit_Octal.to_string()<<endl; // 00001000
-	cout<<bit_Hexadecimal.to_string()<<endl; // 00001010
+    cout<<bit_Decimal.to_string()<<endl; // 00001010
+    cout<<bit_Octal.to_string()<<endl; // 00001000
+    cout<<bit_Hexadecimal.to_string()<<endl; // 00001010
 
 
-	// ²»Í¬½øÖÆ ¿ÉÒÔÖ±½Ó×öÔËËã 
-	// ×¢Òâ bitset¡¡´òÓ¡Ê±¹Ì¶¨£¸Î»¡¡Î´¸³ÖµµÄÎ»´òÓ¡£°¡¡ 
-	// & | ~ ^ 
-	cout<< bitset<8> (10 & 13)<<endl;// 1010 & 1101 1000 
-	cout<< bitset<8> (10 & 013)<<endl;// 1010 & 1011 1010
-	cout<< bitset<8> (10 & 0x13)<<endl;// 1010 & 10011 10
-	
-	cout<< bitset<8> (10 | 13)<<endl;// 1010 | 1101 1111 
-	cout<< bitset<8> (10 | 013)<<endl;// 1010 | 1011 1011
-	cout<< bitset<8> (10 | 0x13)<<endl;// 1010 | 10011 11011
-	
-	cout<< bitset<8> (10 ^ 13)<<endl;// 1010 ^ 1101 0001 
-	cout<< bitset<8> (10 ^ 013)<<endl;// 1010 ^ 1011 0001
-	cout<< bitset<8> (10 ^ 0x13)<<endl;// 1010 ^ 10011 11001
-	
-	cout<< bitset<8> (~13)<<endl;// ~1101 0010
-	cout<< bitset<8> (~013)<<endl;// ~1011 0100
-	cout<< bitset<8> (~0x13)<<endl;// ~10011 01100
-	
-	// Î»ÒÆÔËËã << >> 
-	
-	return 0;
+    // ä¸åŒè¿›åˆ¶ å¯ä»¥ç›´æ¥åšè¿ç®—
+    // æ³¨æ„ bitsetã€€æ‰“å°æ—¶å›ºå®šï¼˜ä½ã€€æœªèµ‹å€¼çš„ä½æ‰“å°ï¼ã€€
+    // & | ~ ^
+    cout<< bitset<8> (10 & 13)<<endl;// 1010 & 1101 1000
+    cout<< bitset<8> (10 & 013)<<endl;// 1010 & 1011 1010
+    cout<< bitset<8> (10 & 0x13)<<endl;// 1010 & 10011 10
+    
+    cout<< bitset<8> (10 | 13)<<endl;// 1010 | 1101 1111
+    cout<< bitset<8> (10 | 013)<<endl;// 1010 | 1011 1011
+    cout<< bitset<8> (10 | 0x13)<<endl;// 1010 | 10011 11011
+    
+    cout<< bitset<8> (10 ^ 13)<<endl;// 1010 ^ 1101 0001
+    cout<< bitset<8> (10 ^ 013)<<endl;// 1010 ^ 1011 0001
+    cout<< bitset<8> (10 ^ 0x13)<<endl;// 1010 ^ 10011 11001
+    
+    cout<< bitset<8> (~13)<<endl;// ~1101 0010
+    cout<< bitset<8> (~013)<<endl;// ~1011 0100
+    cout<< bitset<8> (~0x13)<<endl;// ~10011 01100
+    
+    // ä½ç§»è¿ç®— << >>
+    
+    return 0;
 }
