@@ -28,24 +28,66 @@ Binary：
 1、(32进制与64进制中的)基本数据类型的大小
 2、struct大小的计算与方法的总结
 
-------------------------
-正在进行：
-C++ 继承
-
 1、继承
-继承的种类 
 初始化顺序
-重载重写的区别
-子类对象调用父类的成员，对象
- 
-2、子类对象 父类指针的调用
-2、虚函数的详解
+重载/重写/覆盖(隐藏)
+虚函数 纯虚函数 虚函数表
+
+C++11的特性
+auto关键字 自动类型推导
+decltype decltype实际上有点像auto的反函数，auto可以让你声明一个变量，而decltype则可以从一个变量或表达式中得到类型)
+nullptr 解决原来C++中NULL的二义性问题而引进的一种新的类型
+lambda
+可变参数的模板
+
+模板
+模板的使用
+继承
+
+常用的关键字
+const
+static
 
 ------------------------
+最近重点：
+ 
+
+
+多线程 多线程时的操作
+网络编程 tcp ip 
+
+数据结构
+map的实现  哈希表 红黑树
+排序算法 
+
+------------------------
+static 关键字
+class A {
+private:
+	static int a;
+	int b;
+public:
+	static int getANum();
+	int getBNum();
+}
+
+// static int A::a = 1; // error 不能带static关键字
+int A::a = 1;
+
+// static int A::getNum(){return a;} // error 不能带static关键字
+int A::getANum() {return a;}
+// int A::getANum() {return b;} // error static成员函数无法访问非static关键字
+
+int A::getBNum() {return a;}// 非静态成员函数可以访问静态成员
+
+
+
+static不管在何处声明，都在全局区。都有默认初始化0
+--------
 
 还需要完成的：
 
-类成员初始化的顺序
+文件操作 文件操作
 
 指针的深度了解
 
@@ -54,16 +96,11 @@ C++ 继承
 重载等号运算符等
 深拷贝浅拷贝等
 
-常用的关键字
-const
-static
-。。。
 
-虚函数的理解
+。。。
 
 容器
 
-模板 
 
 文件操作
 

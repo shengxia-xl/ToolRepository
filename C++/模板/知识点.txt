@@ -1,0 +1,89 @@
+C++类模板
+https://www.jianshu.com/p/70ca94872418
+----------------------------
+
+template
+
+函数模板
+类模板 
+
+template <typename T> // T可以被任意字母或者数字取代
+T min(T x, T y)
+{
+	return (x<y)?x:y;
+}
+
+template <typename T1, typename T2>
+class A {
+private:
+	T1 t1;
+	T2 t2;
+public:
+	A(T1 a, T2 b);
+	void show();
+}
+
+template <typename T1, typename T2>
+A<T1, T2>::A(T1 a, T2 b):t1(a),t2(b)
+{
+	
+}
+
+template <typename T1, typename T2>
+void A<T1, T2>::show() {
+	cout<<t1<<t2<<endl;
+}
+
+--------------------
+
+板类的继承
+
+在模板类的继承中，需要注意以下两点：
+
+如果父类自定义了构造函数，记得子类要使用构造函数列表来初始化
+
+继承的时候，如果子类不是模板类，则必须指明当前的父类的类型，因为要分配内存空间
+继承的时候，如果子类是模板类，要么指定父类的类型，要么用子类的泛型来指定父类
+
+template <typename T>
+class Parent{
+public:
+    Parent(T p)
+    {
+        this->p = p;
+    }
+    
+private:
+    T p;
+};
+
+//如果子类不是模板类，需要指明父类的具体类型
+class ChildOne:public Parent<int>{
+    
+public:
+    ChildOne(int a,int b):Parent(b)
+    {
+        this->cone = a;
+    }
+    
+private:
+    int cone;
+};
+
+
+//如果子类是模板类，可以用子类的泛型来表示父类
+template <typename T>
+class ChildTwo:public Parent<T>{
+    
+public:
+    ChildTwo(T a, T b):Parent<T>(b)
+    {
+        this->ctwo = a;
+    }
+    
+private:
+    T ctwo;
+};
+
+-------------------------------------
+主要注意模板类的书写
