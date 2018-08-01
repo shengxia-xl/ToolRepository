@@ -1,3 +1,6 @@
+﻿C ++ 类的大小
+https://blog.csdn.net/fengxinlinux/article/details/72836199
+----------------------------------------------------------------------------------------------------
 
 关于结构体计算的注意点：
 1、static类型的变量，不计算在struct 对象的大小中
@@ -24,6 +27,177 @@
 数组的话，计算方式为N个基本类型(相关3性质 char[10], 最大类型为char 而不是[10])
 成员包含结构体的结构体(拆开来计算)
 
+----------------------------------------------------------------------------------------------------
+类中的继承
+class A{
+
+}
+sizeof(A) = 1
+空类大小为1 
+普通函数  static类型的变量 都不计算在类的大小中
+--------------------
+class A {
+
+}
+class B: public A {
+  int a;
+}
+
+sizeof(B) = 4 
+A类中的1  不计算在B类的大小中
+--------------------
+class A {
+
+}
+class B {
+  A a;
+}
+
+sizeof(B) = 1
+当空类的对象作为成员变量时，大小计算为1
+--------------------
+class A {
+  virtual void fun1();
+  virtual void fun2();
+}
+
+sizeof(A) = 8 
+当有虚函数存在的时候，会有虚表存在。 此时类大小为一个指针
+--------------------
+class  A {
+  virtual void fun1();
+  virtual void fun2();
+}
+class B: public A{
+  virtual void fun3();    sizeof(B) = 8  在基类的虚函数后面追加 还是只有一个虚表
+  //virtual void fun1();  sizeof(B) = 8  在派生类中对基类的虚函数进行覆盖   还是只有一个虚表
+}
+sizeof(B) = 8 
+--------------------
+class  A {
+  virtual void fun1();
+  virtual void fun2();
+}
+class  B {
+  virtual void fun1();
+  virtual void fun2();
+}
+class C:public A,public B {
+}
+sizeof(C) = 16
+
+classB修改为
+class  B {
+  virtual void fun3();
+  virtual void fun4();
+}
+大小不变
+
+classC修改为
+class C:public A,public B {
+  virtual void fun1();
+}
+大小不变
+
+classC修改为
+class C:public A,public B {
+  void fun1();
+}
+大小不变
+--------------------
+class A {
+  int a;
+  int b;
+}
+
+class B:public A {
+  int c;
+}
+
+sizeof(B) = 12 
+
+***********计算方法有误 
+
+----------------------------------------------------------------------------------------------------
+相关知识点：
+虚函数表是如何继承的
+
+class A {
+  virtual void f();
+}
+class B {
+
+}
+
+Vptr -> A::f()
+--------------------
+（1）在派生类中不对基类的虚函数进行覆盖，同时派生类中还拥有自己的虚函数，比如有如下的派生类：
+class A {
+  virtual void f();
+}
+class B {
+  virtual void f1();
+}
+
+Vptr -> A::f() -> B::f1()
+1）虚函数按照其声明顺序放于表中。
+2）基类的虚函数在派生类的虚函数前面。
+--------------------
+（2）在派生类中对基类的虚函数进行覆盖，假设有如下的派生类：
+class A {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+class B {
+
+  virtual void f();
+  virtual void g1();
+  virtual void h1();
+}
+Vptr -> B::f() -> A::g() -> A::h() -> B::g1() -> B::g2()
+1）覆盖的f()函数被放到了虚表中原来基类虚函数的位置。
+2）没有被覆盖的函数依旧。
+--------------------
+（3）多继承：无虚函数覆盖
+class A {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+class B {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+
+class C: public A,public B {
+  virtual void f1();
+}
+Vptr1-> A::f() -> A::g() -> A::h() -> C::f1() 
+Vptr2-> B::f() -> B::g() -> B::h() 
+1） 每个基类都有自己的虚表。
+2） 派生类的成员函数被放到了第一个基类的表中。（所谓的第一个基类是按照声明顺序来判断的）
+--------------------
+
+（4）多重继承，含虚函数覆盖 
+class A {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+class B {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+
+class C: public A,public B {
+  virtual void f();
+  virtual void f1();
+}
+Vptr1-> C::f() -> A::g() -> A::h() -> C::f1() 
+Vptr2-> C::f() -> B::g() -> B::h() 
 ----------------------------------------------------------------------------------------------------
 unsigned 无法修饰float/double
 可是浮点数是按照 整数部分，小数部分，指数部分存放的。运算也是分开来运算的。没法做这样的进位。
