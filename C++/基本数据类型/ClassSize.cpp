@@ -5,23 +5,23 @@ using namespace std;
 class B     
 {  
     char ch;   
-	int a;  
-//    virtual void func0()  {  }   
+//	int a;  
+    virtual void func0()  {  }   
 };   
 
 class C    
 {  
     char ch1;  
     char ch2;  
-    int b;
-//    virtual void func()  {  }    
+//    int b;
+    virtual void func()  {  }    
 //    virtual void func1()  {  }   
 };
 
-class E: public B, public C  
+class E: public B, virtual public C  
 {     
     int e;     
-//    virtual void func0()  {  }   
+    virtual void func0()  {  }   
 //    virtual void func1()  {  }  
 }; 
 

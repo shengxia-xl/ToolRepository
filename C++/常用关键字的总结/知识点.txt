@@ -127,23 +127,137 @@ int v = 2;     //这两个语句效果完全一样，都是v的定义
 ----------------------------------------------------------------------------------------------------
 
 typedef
-声明新的类型，结构体中的成员，默认共有
+声明新的类型，结构体中的成员，默认public
+
 书写方法
 typedef sturct A{
     int a;int b;
-}；
+}str_A；
 
-definde
-替换 
+注意点：C与C++中的情况不同
+1 首先：//注意在C和C++里不同
+在C中定义一个结构体类型要用typedef:
+typedef struct Student
+{
+	int a;
+}Stu;
+于是在声明变量的时候就可：Stu stu1;
+如果没有typedef就必须用struct Student stu1;来声明
+这里的Stu实际上就是struct Student的别名。Stu==struct Student
+另外这里也可以不写Student（于是也不能struct Student stu1;了，必须是Stu stu1;）
+typedef struct
+{
+  int a;
+}Stu;
 
-uion 联合体
-大小为最大的一个类型
+但在c++里很简单，直接
+struct Student
+{
+  int a;
+};　　　　
+于是就定义了结构体类型Student，声明变量时直接Student stu2；
 
-struct 结构体
-声明方法 使用方法 默认为public
 
+其次：
+在c++中如果用typedef的话，又会造成区别：
+struct   Student   
+{   
+  int   a;   
+}stu1;//stu1是一个变量  
 
-mutex   互斥量
-多线程
+ 
+typedef   struct   Student2   
+{   
+  int   a;   
+}stu2;//stu2是一个结构体类型=struct Student  
 
-_valud 信号量
+ 
+使用时可以直接访问stu1.a
+但是stu2则必须先   stu2 s2;
+然后               s2.a=10;
+
+----------------------------------------------------------------------------------------------------
+#define相关用法
+https://blog.csdn.net/u012611878/article/details/52534622
+
+1.无参宏定义
+#define MAXNUM 99999
+
+2.有参宏定义
+#define add(x, y) (x + y)
+cout << "1 plus 1 is " << add(1, 1.5) << ".\n";
+//输出“1 plus 1 is 2.5.”
+
+该“函数”没有类型检查，有点类似模板，但没有模板安全
+
+3.宏定义中的特殊操作符
+
+（1）# 
+#define PSQR(x) printf("the square of" #x "is %d.\n",(x)*(x))
+y = 4;
+PSQR(y); //输出：the square of y is 16.
+PSQR(2+4); //输出：the square of 2+4 is 36.
+
+（2）##
+#define XNAME(n) x##n
+#define PXN(n) printf("x"#n" = %d\n",x##n)
+int XNAME(1)=12;//int x1=12;
+PXN(1);//printf("x1 = %d\n", x1); //输出：x1=12
+
+##n  替换为参数列表中的n    XNAME(1)   =>  x ##n = x 1
+#n   打印时，使用#n来调用替换后的 x##n 
+
+（3）可变参数宏 …和__VA_ARGS__
+__VA_ARGS__ 是一个可变参数的宏
+    #define PR(...) printf(__VA_ARGS__)
+  PR("weight = %d, shipping = %d",wt,sp);
+
+ ## __VA_ARGS__
+如果可变参数被忽略或为空，’##’操作将使预处理器(preprocessor)去除掉它前面的那个逗号
+
+__FILE__ 宏在预编译时会替换成当前的源文件名 
+__LINE__宏在预编译时会替换成当前的行号  __FUNCTION__宏在预编译时会替换成当前的函数名称
+
+4.宏定义中的多行定义
+在句尾的时候，增加'/'
+
+5.宏定义中的条件编译
+#ifdef WINDOWS 
+...... 
+(#else)
+......
+ #endif
+可以在编译的时候通过#define设置编译环境。
+
+6.如何取消宏
+//定义宏 #define [MacroName] [MacroValue] 
+//取消宏 #undef [MacroName]
+
+7.防止重复包含头文件 
+#ifndef __headerfileXXX__ 
+#define __headerfileXXX__ 
+… 
+文件内容
+… 
+#endif
+
+----------------------------------------------------------------------------------------------------
+
+union 联合体
+1)联合体是一个结构；
+2)它的所有成员相对于基地址的偏移量都为0；
+3)此结构空间要大到足够容纳最"宽"的成员；
+4)其对齐方式要适合其中所有的成员
+
+1)大小足够容纳最宽的成员；
+2)大小能被其包含的所有基本数据类型的大小所整除。
+
+union U1  
+{  
+    int n;  
+    char s[11];  
+    double d;  
+}; 
+sizeof(U1) = 16  11 + 5 = 8 * 2
+
+----------------------------------------------------------------------------------------------------

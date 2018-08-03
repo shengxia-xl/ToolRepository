@@ -22,6 +22,9 @@ class 默认为private成员
 缺省继承种类时，默认为private继承
 
 ----------------------------------------------------------------------------------------------------
+解决继承的二义性：虚继承 虚基类
+https://www.cnblogs.com/Caden-liu8888/p/5809253.html
+
 继承二义性：
 A : 子类 
 	int a;
@@ -181,3 +184,85 @@ pB->vfun();  //10
 
 虚函数是动态绑定的，但是为了执行效率，缺省参数是静态绑定的。
 “绝不重新定义继承而来的缺省参数（Never redefine function’s inherited default parameters value.）”
+
+----------------------------------------------------------------------------------------------------
+
+相关知识点：
+虚函数表是如何继承的
+
+class A {
+  virtual void f();
+}
+class B {
+
+}
+
+Vptr -> A::f()
+--------------------
+（1）在派生类中不对基类的虚函数进行覆盖，同时派生类中还拥有自己的虚函数，比如有如下的派生类：
+class A {
+  virtual void f();
+}
+class B {
+  virtual void f1();
+}
+
+Vptr -> A::f() -> B::f1()
+1）虚函数按照其声明顺序放于表中。
+2）基类的虚函数在派生类的虚函数前面。
+--------------------
+（2）在派生类中对基类的虚函数进行覆盖，假设有如下的派生类：
+class A {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+class B {
+
+  virtual void f();
+  virtual void g1();
+  virtual void h1();
+}
+Vptr -> B::f() -> A::g() -> A::h() -> B::g1() -> B::g2()
+1）覆盖的f()函数被放到了虚表中原来基类虚函数的位置。
+2）没有被覆盖的函数依旧。
+--------------------
+（3）多继承：无虚函数覆盖
+class A {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+class B {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+
+class C: public A,public B {
+  virtual void f1();
+}
+Vptr1-> A::f() -> A::g() -> A::h() -> C::f1() 
+Vptr2-> B::f() -> B::g() -> B::h() 
+1） 每个基类都有自己的虚表。
+2） 派生类的成员函数被放到了第一个基类的表中。（所谓的第一个基类是按照声明顺序来判断的）
+--------------------
+
+（4）多重继承，含虚函数覆盖 
+class A {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+class B {
+  virtual void f();
+  virtual void g();
+  virtual void h();
+}
+
+class C: public A,public B {
+  virtual void f();
+  virtual void f1();
+}
+Vptr1-> C::f() -> A::g() -> A::h() -> C::f1() 
+Vptr2-> C::f() -> B::g() -> B::h()
